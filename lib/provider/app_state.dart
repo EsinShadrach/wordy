@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordy/utilities/title_string.dart';
 
 class AppState extends ChangeNotifier {
   Map<String, String> partsOfSpeech = {
@@ -92,11 +93,3 @@ class AppState extends ChangeNotifier {
   }
 }
 
-extension StringExtension on String {
-  String titleCase() {
-    return replaceAllMapped(
-      RegExp(r"(^|\s)\w"),
-      (match) => match.group(0)!.toUpperCase(),
-    );
-  }
-}

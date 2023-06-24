@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/pages/word_of_the_day.dart';
-import 'package:wordy/provider/app_state.dart';
+import 'package:wordy/utilities/title_string.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
