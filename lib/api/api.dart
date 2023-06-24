@@ -60,10 +60,11 @@ class WordData {
     return meanings;
   }
 
-   Future<Map> getStructuredData() async {
-     Map<String, dynamic> structuredData = {
+  Future<Map> getStructuredData() async {
+    Map<String, dynamic> structuredData = {
       "phonetics": await getPhonetics(),
       "audios": await getAudios(),
+      "meanings": await getMeanings(),
     };
     return structuredData;
   }

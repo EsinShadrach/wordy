@@ -43,6 +43,7 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                Text("${wordData["meanings"][0]["partOfSpeech"]}"),
                 DefinedWord(
                   textTheme: textTheme,
                   palette: palette,
@@ -54,21 +55,26 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
                   runSpacing: 6,
                   spacing: 6,
                   children: [
-                    for (int i = 0; i < 5; i++)
-                      Phonetics(
-                        palette: palette,
-                        textTheme: textTheme,
-                      ),
+                    Phonetics(
+                      palette: palette,
+                      textTheme: textTheme,
+                      phonetics: wordData["phonetics"],
+                    ),
                   ],
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                WordCard(
-                  palette: palette,
-                  appState: appState,
-                  textTheme: textTheme,
-                ),
+                for (var meaning in wordData["meanings"])
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: WordCard(
+                      palette: palette,
+                      appState: appState,
+                      textTheme: textTheme,
+                      partOfSpeech: "${meaning["partOfSpeech"]}",
+                    ),
+                  ),
               ],
             ),
           );

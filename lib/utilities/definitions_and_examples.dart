@@ -35,7 +35,9 @@ class DefinitionAndExamplesWidget extends StatelessWidget {
               Text(
                 "- A proverb or motto.",
                 style: textTheme!.bodyLarge!.copyWith(
-                    color: palette.onPrimary, fontWeight: FontWeight.bold),
+                  color: palette.onPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

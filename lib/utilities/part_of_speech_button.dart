@@ -21,7 +21,7 @@ class PartOfSpeechButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-        appState.setPartOfSpeech("Noun");
+        appState.setPartOfSpeech(partOfSpeech);
         showModalBottomSheet(
           showDragHandle: true,
           backgroundColor: palette.primaryContainer,

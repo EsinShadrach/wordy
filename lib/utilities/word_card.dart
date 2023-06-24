@@ -12,11 +12,13 @@ class WordCard extends StatelessWidget {
     required this.palette,
     required this.appState,
     required this.textTheme,
+    required this.partOfSpeech,
   });
 
   final ColorScheme palette;
   final AppState appState;
   final TextTheme? textTheme;
+  final String partOfSpeech;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class WordCard extends StatelessWidget {
             appState: appState,
             palette: palette,
             textTheme: textTheme,
-            partOfSpeech: "noun",
+            partOfSpeech: partOfSpeech,
           ),
           DefinitionAndExamplesWidget(
             textTheme: textTheme,
