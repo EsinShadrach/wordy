@@ -74,6 +74,8 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
                       textTheme: textTheme,
                       partOfSpeech: "${meaning["partOfSpeech"]}",
                       definitions: meaning["definitions"],
+                      synonyms: meaning["synonyms"],
+                      antonym: meaning["antonyms"],
                     ),
                   ),
               ],

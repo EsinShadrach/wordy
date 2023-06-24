@@ -14,7 +14,7 @@ class SynonymAndAntonymWidget extends StatelessWidget {
   final TextTheme? textTheme;
   final ColorScheme palette;
   final String lexicalRelation;
-  final List<String>? lexicalRelations;
+  final List<dynamic>? lexicalRelations;
 
   @override
   Widget build(BuildContext context) {

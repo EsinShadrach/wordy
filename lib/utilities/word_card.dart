@@ -14,6 +14,8 @@ class WordCard extends StatelessWidget {
     required this.textTheme,
     required this.partOfSpeech,
     this.definitions,
+    this.synonyms,
+    this.antonym,
   });
 
   final ColorScheme palette;
@@ -21,6 +23,8 @@ class WordCard extends StatelessWidget {
   final TextTheme? textTheme;
   final String partOfSpeech;
   final List? definitions;
+  final List? synonyms;
+  final List? antonym;
 
   @override
   Widget build(BuildContext context) {
@@ -52,35 +56,30 @@ class WordCard extends StatelessWidget {
               definition: definition["definition"],
               example: definition["example"] ?? "",
             ),
-          Divider(
-            height: 20,
-            indent: 20,
-            endIndent: 20,
-            color: palette.onPrimary.withOpacity(0.6),
-            thickness: 2,
-          ),
+          synonyms!.isNotEmpty && antonym!.isNotEmpty
+              ? Divider(
+                  height: 20,
+                  indent: 20,
+                  endIndent: 20,
+                  color: palette.onPrimary.withOpacity(0.6),
+                  thickness: 2,
+                )
+              : Container(),
           SynonymAndAntonymWidget(
             textTheme: textTheme,
             palette: palette,
             lexicalRelation: "Synonym".titleCase(),
-            lexicalRelations: const ["apple", "butter", "rice"],
+            lexicalRelations: synonyms,
           ),
           const SizedBox(height: 10),
           SynonymAndAntonymWidget(
             textTheme: textTheme,
             palette: palette,
             lexicalRelation: "Antonym".titleCase(),
-            lexicalRelations: const [],
+            lexicalRelations: antonym,
           ),
         ],
       ),
     );
   }
 }
-
-/*  I don't know maybe this will take in a parameter.
-one for meanings field from api */
-/*
-The Main body of the code <WordOfTheDay> would pass an array of objects down i guess
-and this word_card reads it and distributes it  to it's children when necessary
- */

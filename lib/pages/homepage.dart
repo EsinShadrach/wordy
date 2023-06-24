@@ -52,7 +52,10 @@ class _HomePageState extends State<HomePage> {
           ),
           SliverList(
             delegate: SliverChildListDelegate([
-              const WordOfTheDay(),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 50),
+                child: WordOfTheDay(),
+              ),
             ]),
           ),
         ],
