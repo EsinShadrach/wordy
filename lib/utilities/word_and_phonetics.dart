@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordy/utilities/title_string.dart';
+import 'package:provider/provider.dart';
+import 'package:wordy/provider/app_state.dart';
 
 class DefinedWord extends StatelessWidget {
   const DefinedWord({
@@ -13,11 +14,12 @@ class DefinedWord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppState appState = context.watch<AppState>();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "Word".titleCase(),
+          appState.wordOfTheDay,
           style: textTheme!.displayMedium!.copyWith(
             color: palette.primary,
           ),

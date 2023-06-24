@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wordy/pages/word_of_the_day.dart';
-import 'package:wordy/utilities/title_string.dart';
+import 'package:wordy/provider/app_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AppState>();
     ColorScheme palette = Theme.of(context).colorScheme;
     TextTheme? textTheme = Theme.of(context).textTheme;
     return Scaffold(
@@ -30,7 +32,7 @@ class _HomePageState extends State<HomePage> {
             pinned: true,
             titleTextStyle: textTheme.displaySmall!
                 .copyWith(color: palette.onPrimaryContainer),
-            title: Text("Word".titleCase()),
+            title: Text(appState.wordOfTheDay),
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1,
               collapseMode: CollapseMode.parallax,
@@ -40,10 +42,9 @@ class _HomePageState extends State<HomePage> {
                   alignment: Alignment.bottomCenter,
                   child: Text(
                     "Word of the day",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineLarge!
-                        .copyWith(color: palette.onPrimaryContainer),
+                    style: textTheme.headlineLarge!.copyWith(
+                      color: palette.onPrimaryContainer,
+                    ),
                   ),
                 ),
               ),

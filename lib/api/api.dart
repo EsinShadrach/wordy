@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
@@ -22,8 +21,6 @@ class WordData {
 
         final wordData = jsonResponse[0];
 
-        await File('data.json').writeAsString(jsonEncode(wordData));
-        print('Data written to file: data.json');
         return wordData; // Return the fetched word data
       }
     } catch (error) {
@@ -62,10 +59,12 @@ class WordData {
     List<dynamic> meanings = data["meanings"];
     return meanings;
   }
-}
 
-void main() async {
-  WordData getWordData = WordData(word: "Word");
-  List phonetic = await getWordData.getMeanings();
-  print(phonetic);
+   Future<Map> getStructuredData() async {
+     Map<String, dynamic> structuredData = {
+      "phonetics": await getPhonetics(),
+      "audios": await getAudios(),
+    };
+    return structuredData;
+  }
 }

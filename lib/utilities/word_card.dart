@@ -70,3 +70,10 @@ class WordCard extends StatelessWidget {
     );
   }
 }
+
+/*  I don't know maybe this will take in a parameter.
+one for meanings field from api */
+/*
+The Main body of the code <WordOfTheDay> would pass an array of objects down i guess
+and this word_card reads it and distributes it  to it's children when necessary
+ */

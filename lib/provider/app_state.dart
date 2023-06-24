@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:wordy/utilities/title_string.dart';
+import 'package:english_words/english_words.dart';
 
 class AppState extends ChangeNotifier {
   Map<String, String> partsOfSpeech = {
@@ -63,6 +66,11 @@ class AppState extends ChangeNotifier {
 
   List<String> history = [];
   Map<String, String?> dataForBottomSheet = {};
+  var random = Random();
+
+  String wordOfTheDay = generateWordPairs(
+    maxSyllables: 30,
+  ).first.first.titleCase();
 
   void addToHistory(String word) {
     if (!history.contains(word)) {
@@ -92,4 +100,3 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 }
-
