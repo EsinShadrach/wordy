@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wordy/pages/word_of_the_day.dart';
+import 'package:wordy/provider/app_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             pinned: true,
             titleTextStyle: textTheme.displaySmall!
                 .copyWith(color: palette.onPrimaryContainer),
-            title: const Text("Apple"),
+            title: Text("Word".titleCase()),
             flexibleSpace: FlexibleSpaceBar(
               expandedTitleScale: 1,
               collapseMode: CollapseMode.parallax,
@@ -48,11 +50,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                const WordOfTheDay(),
-              ],
-            ),
+            delegate: SliverChildListDelegate([
+              const WordOfTheDay(),
+            ]),
           ),
         ],
       ),
@@ -73,66 +73,6 @@ class _HomePageState extends State<HomePage> {
         ),
         autofocus: true,
         tooltip: "Search",
-      ),
-    );
-  }
-}
-
-class WordOfTheDay extends StatelessWidget {
-  const WordOfTheDay({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    TextTheme? textTheme = Theme.of(context).textTheme;
-    ColorScheme palette = Theme.of(context).colorScheme;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Apple",
-                style: textTheme.displayMedium!.copyWith(
-                  color: palette.primary,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              IconButton(
-                onPressed: () {},
-                color: palette.onPrimaryContainer,
-                iconSize: 30,
-                tooltip: "Speak",
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    palette.primaryContainer.withOpacity(0.3),
-                  ),
-                ),
-                highlightColor: palette.primaryContainer,
-                icon: const Icon(
-                  Icons.mic_rounded,
-                ),
-              )
-            ],
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          // ADD PHONETICS HERE
-          const Text("apple"),
-          // ADD DEFINITIONS
-          const Text("Phonetics"),
-          // ADD SYNONYMS HERE
-          const Text("Synonym"),
-        ],
       ),
     );
   }

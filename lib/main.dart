@@ -1,5 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordy/provider/app_state.dart';
 import 'pages/homepage.dart';
 
 void main() {
@@ -13,21 +15,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return DynamicColorBuilder(
       builder: (ColorScheme? lightScheme, ColorScheme? darkDynamic) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: lightScheme,
-            brightness: Brightness.light,
-            useMaterial3: true,
+        return ChangeNotifierProvider(
+          create: (context) => AppState(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              colorScheme: lightScheme,
+              brightness: Brightness.light,
+              useMaterial3: true,
+            ),
+            darkTheme: ThemeData(
+              colorScheme: darkDynamic,
+              useMaterial3: true,
+              brightness: Brightness.dark,
+            ),
+            themeMode: ThemeMode.system,
+            home: const HomePage(),
           ),
-          darkTheme: ThemeData(
-            colorScheme: darkDynamic,
-            useMaterial3: true,
-            brightness: Brightness.dark,
-          ),
-          themeMode: ThemeMode.system,
-          home: const HomePage(),
         );
       },
     );
