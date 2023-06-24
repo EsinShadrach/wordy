@@ -1,64 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
+import 'package:wordy/pages/favourite.dart';
 import 'package:wordy/pages/word_of_the_day.dart';
-import 'package:wordy/provider/app_state.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HiddenDrawerWidget extends StatefulWidget {
+  const HiddenDrawerWidget({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HiddenDrawerWidget> createState() => _HiddenDrawerWidgetState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HiddenDrawerWidgetState extends State<HiddenDrawerWidget> {
+  late List<ScreenHiddenDrawer> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: "Word Of The Day",
+          baseStyle: const TextStyle(),
+          selectedStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+        ),
+        const WordOfTheDay(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: "Favourite",
+          baseStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+          selectedStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+        ),
+        const Favourite(),
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<AppState>();
     ColorScheme palette = Theme.of(context).colorScheme;
-    TextTheme? textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: palette.inversePrimary,
-            leading: IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                // Open Drawer
-              },
-            ),
-            centerTitle: true,
-            expandedHeight: 310,
-            pinned: true,
-            titleTextStyle: textTheme.displaySmall!
-                .copyWith(color: palette.onPrimaryContainer),
-            title: Text(appState.wordOfTheDay),
-            flexibleSpace: FlexibleSpaceBar(
-              expandedTitleScale: 1,
-              collapseMode: CollapseMode.parallax,
-              background: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 30),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    "Word of the day",
-                    style: textTheme.headlineLarge!.copyWith(
-                      color: palette.onPrimaryContainer,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              const Padding(
-                padding: EdgeInsets.only(bottom: 50),
-                child: WordOfTheDay(),
-              ),
-            ]),
-          ),
-        ],
+      body: HiddenDrawerMenu(
+        backgroundColorMenu: palette.inversePrimary,
+        backgroundColorAppBar: palette.onPrimary,
+        screens: _pages,
+        isTitleCentered: true,
+        slidePercent: 40,
+        verticalScalePercent: 90,
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -81,3 +78,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// ADD A sort fo Caching, where we check if a 
+//user have visited the word, if so then we show
+//that word instead of getting the word again

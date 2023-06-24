@@ -36,47 +36,57 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
           return LoadingCard(palette: palette);
         } else if (snapshot.hasData) {
           var wordData = snapshot.data;
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text("${wordData["meanings"][0]["partOfSpeech"]}"),
-                DefinedWord(
-                  textTheme: textTheme,
-                  palette: palette,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Wrap(
-                  runSpacing: 6,
-                  spacing: 6,
-                  children: [
-                    Phonetics(
-                      palette: palette,
-                      textTheme: textTheme,
-                      phonetics: wordData["phonetics"],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                for (var meaning in wordData["meanings"])
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: WordCard(
-                      palette: palette,
-                      appState: appState,
-                      textTheme: textTheme,
-                      partOfSpeech: "${meaning["partOfSpeech"]}",
-                      definitions: meaning["definitions"],
-                      synonyms: meaning["synonyms"],
-                      antonym: meaning["antonyms"],
-                    ),
+          return Scaffold(
+            body: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 20,
+                    left: 10,
+                    right: 10,
+                    bottom: 70,
                   ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      DefinedWord(
+                        textTheme: textTheme,
+                        palette: palette,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Wrap(
+                        runSpacing: 6,
+                        spacing: 6,
+                        children: [
+                          Phonetics(
+                            palette: palette,
+                            textTheme: textTheme,
+                            phonetics: wordData["phonetics"],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      for (var meaning in wordData["meanings"])
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: WordCard(
+                            palette: palette,
+                            appState: appState,
+                            textTheme: textTheme,
+                            partOfSpeech: "${meaning["partOfSpeech"]}",
+                            definitions: meaning["definitions"],
+                            synonyms: meaning["synonyms"],
+                            antonym: meaning["antonyms"],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ],
             ),
           );
@@ -99,18 +109,20 @@ class LoadingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.all(8),
-      height: 450,
-      constraints: const BoxConstraints(maxWidth: 450),
-      decoration: BoxDecoration(
-        color: palette.primary,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Center(
-        child: CircularProgressIndicator(
-          color: palette.onPrimary,
+    return Scaffold(
+      body: Container(
+        padding: const EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
+        height: double.infinity,
+        constraints: const BoxConstraints(maxWidth: 450),
+        decoration: BoxDecoration(
+          color: palette.primary,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Center(
+          child: CircularProgressIndicator(
+            color: palette.onPrimary,
+          ),
         ),
       ),
     );

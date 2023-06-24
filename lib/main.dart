@@ -1,8 +1,8 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordy/pages/homepage.dart';
 import 'package:wordy/provider/app_state.dart';
-import 'pages/homepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,11 +27,12 @@ class MyApp extends StatelessWidget {
             ),
             darkTheme: ThemeData(
               colorScheme: darkDynamic,
+              // colorSchemeSeed: Colors.blue,
               useMaterial3: true,
               brightness: Brightness.dark,
             ),
             themeMode: ThemeMode.system,
-            home: const HomePage(),
+            home: const HiddenDrawerWidget(),
           ),
         );
       },
