@@ -73,6 +73,7 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
                       appState: appState,
                       textTheme: textTheme,
                       partOfSpeech: "${meaning["partOfSpeech"]}",
+                      definitions: meaning["definitions"],
                     ),
                   ),
               ],

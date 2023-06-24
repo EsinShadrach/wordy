@@ -13,12 +13,14 @@ class WordCard extends StatelessWidget {
     required this.appState,
     required this.textTheme,
     required this.partOfSpeech,
+    this.definitions,
   });
 
   final ColorScheme palette;
   final AppState appState;
   final TextTheme? textTheme;
   final String partOfSpeech;
+  final List? definitions;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +45,13 @@ class WordCard extends StatelessWidget {
             textTheme: textTheme,
             partOfSpeech: partOfSpeech,
           ),
-          DefinitionAndExamplesWidget(
-            textTheme: textTheme,
-            palette: palette,
-          ),
+          for (var definition in definitions!)
+            DefinitionAndExamplesWidget(
+              textTheme: textTheme,
+              palette: palette,
+              definition: definition["definition"],
+              example: definition["example"] ?? "",
+            ),
           Divider(
             height: 20,
             indent: 20,

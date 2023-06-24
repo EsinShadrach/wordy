@@ -5,10 +5,14 @@ class DefinitionAndExamplesWidget extends StatelessWidget {
     super.key,
     required this.textTheme,
     required this.palette,
+    required this.definition,
+    required this.example,
   });
 
   final TextTheme? textTheme;
   final ColorScheme palette;
+  final String definition;
+  final String example;
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +22,31 @@ class DefinitionAndExamplesWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "The smallest unit of language that has a particular meaning and can be expressed by itself; the smallest discrete, meaningful unit of language. (contrast morpheme.)",
+            definition,
             style: textTheme!.bodyLarge!.copyWith(
               color: palette.onPrimary,
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Examples: ",
-                style: textTheme!.bodyLarge!.copyWith(
-                  color: palette.onPrimary,
-                ),
-              ),
-              Text(
-                "- A proverb or motto.",
-                style: textTheme!.bodyLarge!.copyWith(
-                  color: palette.onPrimary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
+          example.isNotEmpty
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Example: ",
+                      style: textTheme!.bodyLarge!.copyWith(
+                        color: palette.onPrimary,
+                      ),
+                    ),
+                    Text(
+                      example,
+                      style: textTheme!.bodyLarge!.copyWith(
+                        color: palette.onPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
+              : Container()
         ],
       ),
     );
