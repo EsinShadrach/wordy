@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:wordy/utilities/title_string.dart';
 import 'package:english_words/english_words.dart';
 
+import '../api/api.dart';
+
 class AppState extends ChangeNotifier {
   Map<String, String> partsOfSpeech = {
     'Noun': 'A word that represents a person, place, thing, or idea.',
@@ -74,7 +76,6 @@ class AppState extends ChangeNotifier {
 
   void addToHistory(String word) {
     if (!history.contains(word)) {
-      // ! IF THE HISTORY DOESN'T CONTAIN THE WORD
       history.add(word);
       notifyListeners();
     }
@@ -98,5 +99,11 @@ class AppState extends ChangeNotifier {
       "definition": partsOfSpeech[speech.titleCase()],
     };
     notifyListeners();
+  }
+
+  Future<void> getWordData(String word) async {
+    dynamic data = await WordData(word: word).getStructuredData();
+    notifyListeners();
+    return data;
   }
 }

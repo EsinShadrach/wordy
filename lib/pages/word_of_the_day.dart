@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wordy/api/api.dart';
 import 'package:wordy/provider/app_state.dart';
 import 'package:wordy/utilities/phonetics.dart';
 
@@ -21,7 +20,7 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
   @override
   void initState() {
     final appState = context.read<AppState>();
-    _wordInfo = WordData(word: appState.wordOfTheDay).getStructuredData();
+    _wordInfo = appState.getWordData(appState.wordOfTheDay);
     super.initState();
   }
 
