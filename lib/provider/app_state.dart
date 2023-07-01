@@ -107,6 +107,5 @@ class AppState extends ChangeNotifier {
     dynamic data = await WordData(word: word).getStructuredData();
     wordOfTheDayData = data;
     notifyListeners();
-    return data;
   }
 }

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AppState(),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'Wordy',
             theme: ThemeData(
               colorScheme: lightScheme,
               brightness: Brightness.light,
