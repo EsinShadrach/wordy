@@ -20,7 +20,7 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
   @override
   void initState() {
     final appState = context.read<AppState>();
-    _wordInfo = appState.getWordData(appState.wordOfTheDay);
+    _wordInfo = appState.getWordData();
     super.initState();
   }
 

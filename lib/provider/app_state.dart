@@ -69,6 +69,7 @@ class AppState extends ChangeNotifier {
   List<String> history = [];
   Map<String, String?> dataForBottomSheet = {};
   var random = Random();
+  dynamic wordOfTheDayData;
 
   String wordOfTheDay = generateWordPairs(
     maxSyllables: 30,
@@ -101,8 +102,10 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getWordData(String word) async {
+  Future<void> getWordData() async {
+    String word = wordOfTheDay;
     dynamic data = await WordData(word: word).getStructuredData();
+    wordOfTheDayData = data;
     notifyListeners();
     return data;
   }
