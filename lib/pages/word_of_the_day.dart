@@ -16,11 +16,10 @@ class WordOfTheDay extends StatefulWidget {
 }
 
 class _WordOfTheDayState extends State<WordOfTheDay> {
-  late Future<dynamic> _wordInfo;
   @override
   void initState() {
     final appState = context.read<AppState>();
-    _wordInfo = appState.getWordData();
+    appState.getWordOfTheDay();
     super.initState();
   }
 
@@ -29,73 +28,65 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
     TextTheme? textTheme = Theme.of(context).textTheme;
     ColorScheme palette = Theme.of(context).colorScheme;
     AppState appState = context.watch<AppState>();
-    return FutureBuilder(
-      future: _wordInfo,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return LoadingCard(palette: palette);
-        } else if (snapshot.hasData) {
-          var wordData = snapshot.data;
-          return Scaffold(
-            body: ListView(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 20,
-                    left: 10,
-                    right: 10,
-                    bottom: 70,
+    var wordData = appState.wordOfTheDayData;
+    if (wordData == null) {
+      return LoadingCard(palette: palette);
+    } else {
+      return Scaffold(
+        body: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 20,
+                left: 10,
+                right: 10,
+                bottom: 70,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  DefinedWord(
+                    textTheme: textTheme,
+                    palette: palette,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      DefinedWord(
-                        textTheme: textTheme,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Wrap(
+                    runSpacing: 6,
+                    spacing: 6,
+                    children: [
+                      Phonetics(
                         palette: palette,
+                        textTheme: textTheme,
+                        phonetics: wordData["phonetics"],
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Wrap(
-                        runSpacing: 6,
-                        spacing: 6,
-                        children: [
-                          Phonetics(
-                            palette: palette,
-                            textTheme: textTheme,
-                            phonetics: wordData["phonetics"],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      for (var meaning in wordData["meanings"])
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: WordCard(
-                            palette: palette,
-                            appState: appState,
-                            textTheme: textTheme,
-                            partOfSpeech: "${meaning["partOfSpeech"]}",
-                            definitions: meaning["definitions"],
-                            synonyms: meaning["synonyms"],
-                            antonym: meaning["antonyms"],
-                          ),
-                        ),
                     ],
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  for (var meaning in wordData["meanings"])
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: WordCard(
+                        palette: palette,
+                        appState: appState,
+                        textTheme: textTheme,
+                        partOfSpeech: "${meaning["partOfSpeech"]}",
+                        definitions: meaning["definitions"],
+                        synonyms: meaning["synonyms"],
+                        antonym: meaning["antonyms"],
+                      ),
+                    ),
+                ],
+              ),
             ),
-          );
-        }
-        return Center(
-          child: Text("${snapshot.data}"),
-        );
-      },
-    );
+          ],
+        ),
+      );
+    }
   }
 }
 
