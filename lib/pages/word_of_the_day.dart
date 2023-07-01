@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordy/provider/app_state.dart';
-import 'package:wordy/utilities/loadin_state.dart';
+import 'package:wordy/utilities/loading_state.dart';
 import 'package:wordy/utilities/phonetics.dart';
-import 'package:wordy/utilities/skelenton_line.dart';
 
 import '../utilities/word_and_phonetics.dart';
 import '../utilities/word_card.dart';
