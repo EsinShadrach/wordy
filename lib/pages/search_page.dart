@@ -9,6 +9,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   late final TextEditingController _searchController;
+  final GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
   bool searchActive = false;
 
   @override
@@ -23,43 +24,65 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  void submitWord() {
+    if (_searchController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please Enter a Word.")),
+      );
+    } else {
+      // DO SOMETHING
+      () {};
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
+        iconTheme: IconThemeData(
+          color: context.colorScheme.primary,
+        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(0.03),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             margin: EdgeInsets.symmetric(horizontal: searchActive ? 0 : 100),
-            color: Theme.of(context)
-                .colorScheme
-                .primary
-                .withOpacity(searchActive ? 1 : 0),
+            color: context.colorScheme.primary.withOpacity(
+              searchActive ? 1 : 0,
+            ),
             height: 4.0,
           ),
         ),
-        title: TextField(
-          onTap: () {
-            setState(() {
-              searchActive = true;
-            });
-          },
-          onTapOutside: (event) {
-            setState(() {
-              searchActive = false;
-            });
-          },
-          decoration: InputDecoration(
-            hintText: 'Search!!',
-            border: InputBorder.none,
-            suffixIcon: IconButton(
-              icon: Icon(
-                Icons.search_rounded,
-                color: context.colorScheme.error,
+        title: Form(
+          key: _formKey,
+          child: TextFormField(
+            controller: _searchController,
+            onFieldSubmitted: (value) {
+              submitWord();
+            },
+            onTap: () {
+              setState(() {
+                searchActive = true;
+              });
+            },
+            onTapOutside: (event) {
+              setState(() {
+                searchActive = false;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: 'Search!!',
+              border: InputBorder.none,
+              suffixIcon: IconButton(
+                icon: Icon(
+                  Icons.search_rounded,
+                  color: context.colorScheme.primary,
+                ),
+                onPressed: () {
+                  submitWord();
+                },
               ),
-              onPressed: () {},
             ),
           ),
         ),
@@ -69,6 +92,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-extension ColorThemes on BuildContext {
+extension ThemesExtension on BuildContext {
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
+  TextTheme get textTheme => Theme.of(this).textTheme;
 }
