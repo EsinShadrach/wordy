@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordy/utilities/word_and_phonetics.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -11,7 +12,7 @@ class _SearchPageState extends State<SearchPage> {
   late final TextEditingController _searchController;
   final GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
   bool searchActive = false;
-
+  List<String> filteredList = [];
   @override
   void initState() {
     _searchController = TextEditingController();
@@ -30,10 +31,24 @@ class _SearchPageState extends State<SearchPage> {
         const SnackBar(content: Text("Please Enter a Word.")),
       );
     } else {
-      // DO SOMETHING
-      () {};
+      setState(() {
+        filteredList = sample
+            .where(
+                (item) => item.contains(_searchController.text.toLowerCase()))
+            .toList();
+      });
     }
   }
+
+  List<String> sample = [
+    "apple",
+    "banana",
+    "orange",
+    "butter",
+    "RICE",
+    "bacon",
+    "cheese"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +56,14 @@ class _SearchPageState extends State<SearchPage> {
       appBar: AppBar(
         elevation: 1,
         iconTheme: IconThemeData(
-          color: context.colorScheme.primary,
+          color: context.colorscheme.primary,
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(0.03),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             margin: EdgeInsets.symmetric(horizontal: searchActive ? 0 : 100),
-            color: context.colorScheme.primary.withOpacity(
+            color: context.colorscheme.primary.withOpacity(
               searchActive ? 1 : 0,
             ),
             height: 4.0,
@@ -71,13 +86,22 @@ class _SearchPageState extends State<SearchPage> {
                 searchActive = false;
               });
             },
+            onChanged: (value) {
+              setState(() {
+                filteredList = sample
+                    .where((String item) =>
+                        item.toLowerCase().contains(value.toLowerCase()) ||
+                        value == '')
+                    .toList();
+              });
+            },
             decoration: InputDecoration(
               hintText: 'Search!!',
               border: InputBorder.none,
               suffixIcon: IconButton(
                 icon: Icon(
                   Icons.search_rounded,
-                  color: context.colorScheme.primary,
+                  color: context.colorscheme.primary,
                 ),
                 onPressed: () {
                   submitWord();
@@ -88,22 +112,23 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       body: ListView.builder(
-        itemCount: 10,
+        itemCount: filteredList.length,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
             leading: const Icon(Icons.history),
-            title: const Row(
+            iconColor: context.colorscheme.primary,
+            title: Row(
               children: [
                 Expanded(
-                  child: Text("data"),
+                  child: Text(filteredList[index]),
                 ),
-                Icon(Icons.arrow_forward_rounded),
+                const Icon(Icons.arrow_forward_rounded),
               ],
             ),
-            splashColor: context.colorScheme.secondary.withOpacity(0.3),
+            splashColor: context.colorscheme.secondary.withOpacity(0.3),
             onTap: () {
-              print("object");
+              print(sample[index]);
             },
           );
         },
@@ -112,10 +137,6 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-extension ThemesExtension on BuildContext {
-  ColorScheme get colorScheme => Theme.of(this).colorScheme;
-  TextTheme get textTheme => Theme.of(this).textTheme;
-}
 
 // * ADD A LISTVIEW.BUILDER TO RENDER ALL HISTORY AND ONLY WORDS RELATED TO OUR PRESENT SEARCH
 // * SO WE'LL BASICALLY RENDER ALL ITEMS, HAVE A DICTIONARY WHICH CHECKS IF THE  WORD IS IN OUR HISTORY OR FAVOURITE
