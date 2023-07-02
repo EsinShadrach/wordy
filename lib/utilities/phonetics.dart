@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wordy/utilities/word_and_phonetics.dart';
 
 class Phonetics extends StatelessWidget {
   const Phonetics({
@@ -17,7 +18,7 @@ class Phonetics extends StatelessWidget {
     for (String phonetic in phonetics!) {
       return Container(
         decoration: BoxDecoration(
-          color: palette.primary,
+          color: context.colorscheme.primary,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: palette.onPrimary, width: 2),
         ),
@@ -25,7 +26,7 @@ class Phonetics extends StatelessWidget {
         child: Text(
           phonetic,
           style: textTheme!.headlineSmall!.copyWith(
-            color: palette.onPrimary,
+            color: context.colorscheme.onPrimary,
           ),
         ),
       );

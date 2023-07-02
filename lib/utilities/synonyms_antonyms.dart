@@ -26,7 +26,7 @@ class SynonymAndAntonymWidget extends StatelessWidget {
           Text(
             "$lexicalRelation:",
             style: textTheme!.titleLarge!.copyWith(
-              color: palette.onPrimary,
+              color: palette.secondary,
             ),
           ),
           const SizedBox(height: 7),
@@ -35,7 +35,7 @@ class SynonymAndAntonymWidget extends StatelessWidget {
             runSpacing: 5,
             children: [
               for (String lexicalRelation in lexicalRelations!)
-                LexicalRelationCard(
+                LexicalRelationPill(
                   palette: palette,
                   lexicalRelation: lexicalRelation,
                   textTheme: textTheme,
@@ -48,4 +48,3 @@ class SynonymAndAntonymWidget extends StatelessWidget {
     return Container();
   }
 }
-

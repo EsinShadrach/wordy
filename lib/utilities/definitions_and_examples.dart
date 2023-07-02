@@ -4,18 +4,19 @@ class DefinitionAndExamplesWidget extends StatelessWidget {
   const DefinitionAndExamplesWidget({
     super.key,
     required this.textTheme,
-    required this.palette,
+    // required this.palette,
     required this.definition,
     required this.example,
   });
 
   final TextTheme? textTheme;
-  final ColorScheme palette;
+  // final ColorScheme palette;
   final String definition;
   final String example;
 
   @override
   Widget build(BuildContext context) {
+    var palette = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Column(
@@ -23,9 +24,7 @@ class DefinitionAndExamplesWidget extends StatelessWidget {
         children: [
           Text(
             definition,
-            style: textTheme!.bodyLarge!.copyWith(
-              color: palette.onPrimary,
-            ),
+            style: textTheme!.bodyLarge!,
           ),
           example.isNotEmpty
               ? Column(
@@ -34,13 +33,13 @@ class DefinitionAndExamplesWidget extends StatelessWidget {
                     Text(
                       "Example: ",
                       style: textTheme!.bodyLarge!.copyWith(
-                        color: palette.onPrimary,
+                        color: palette.secondary,
                       ),
                     ),
                     Text(
                       example,
                       style: textTheme!.bodyLarge!.copyWith(
-                        color: palette.onPrimary,
+                        color: palette.tertiary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

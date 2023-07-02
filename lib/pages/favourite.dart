@@ -17,6 +17,7 @@ class Favourite extends StatelessWidget {
             Icon(
               Icons.favorite,
               color: palette.primary,
+              size: 32,
             ),
             const SizedBox(
               width: 10,
@@ -24,7 +25,7 @@ class Favourite extends StatelessWidget {
             Text(
               "Favourite Page",
               style: textTheme.headlineLarge!.copyWith(
-                color: palette.primary,
+                // color: palette.primary,
                 fontWeight: FontWeight.w700,
               ),
             ),

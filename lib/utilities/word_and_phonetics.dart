@@ -52,9 +52,7 @@ class _DefinedWordState extends State<DefinedWord> {
       children: [
         Text(
           appState.wordOfTheDay,
-          style: widget.textTheme!.displayMedium!.copyWith(
-            color: widget.palette.primary,
-          ),
+          style: widget.textTheme!.displayMedium!
         ),
         const SizedBox(
           width: 10,
@@ -63,15 +61,9 @@ class _DefinedWordState extends State<DefinedWord> {
           onPressed: () {
             playAudioFromUrl(word);
           },
-          color: widget.palette.onPrimaryContainer,
           iconSize: 30,
           tooltip: "Speak",
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-              widget.palette.primaryContainer.withOpacity(0.3),
-            ),
-          ),
-          highlightColor: widget.palette.primaryContainer,
+          highlightColor: context.colorscheme.onSurface.withOpacity(0.2),
           icon: const Icon(
             Icons.mic_rounded,
           ),
@@ -79,4 +71,9 @@ class _DefinedWordState extends State<DefinedWord> {
       ],
     );
   }
+}
+
+extension ThemesExtension on BuildContext {
+  ColorScheme get colorscheme => Theme.of(this).colorScheme;
+  TextTheme get textTheme => Theme.of(this).textTheme;
 }

@@ -87,7 +87,27 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-      body: const Placeholder(),
+      body: ListView.builder(
+        itemCount: 10,
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: const Icon(Icons.history),
+            title: const Row(
+              children: [
+                Expanded(
+                  child: Text("data"),
+                ),
+                Icon(Icons.arrow_forward_rounded),
+              ],
+            ),
+            splashColor: context.colorScheme.secondary.withOpacity(0.3),
+            onTap: () {
+              print("object");
+            },
+          );
+        },
+      ),
     );
   }
 }

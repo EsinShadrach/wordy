@@ -24,7 +24,6 @@ class PartOfSpeechButton extends StatelessWidget {
         appState.setPartOfSpeech(partOfSpeech);
         showModalBottomSheet(
           showDragHandle: true,
-          backgroundColor: palette.primaryContainer,
           constraints: const BoxConstraints(
             maxWidth: 450,
           ),
@@ -39,9 +38,6 @@ class PartOfSpeechButton extends StatelessWidget {
       },
       style: ButtonStyle(
         padding: const MaterialStatePropertyAll(EdgeInsets.all(0)),
-        foregroundColor: MaterialStatePropertyAll(
-          palette.onPrimary,
-        ),
         textStyle: MaterialStatePropertyAll(
           textTheme!.headlineMedium!.copyWith(
             fontWeight: FontWeight.w600,

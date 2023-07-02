@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LexicalRelationCard extends StatelessWidget {
-  const LexicalRelationCard({
+class LexicalRelationPill extends StatelessWidget {
+  const LexicalRelationPill({
     super.key,
     required this.palette,
     required this.lexicalRelation,
@@ -20,17 +20,17 @@ class LexicalRelationCard extends StatelessWidget {
         vertical: 7,
       ),
       decoration: BoxDecoration(
-        color: palette.background,
+        color: palette.surface,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: palette.inversePrimary,
+          color: palette.secondary.withOpacity(0.4),
           width: 2,
         ),
       ),
       child: Text(
         lexicalRelation,
         style: textTheme!.labelLarge!.copyWith(
-          color: palette.onBackground,
+          color: palette.onSurface,
         ),
       ),
     );
