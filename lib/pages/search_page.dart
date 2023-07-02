@@ -87,7 +87,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
         ),
       ),
-      // body: const Placeholder(),
+      body: const Placeholder(),
     );
   }
 }
@@ -96,3 +96,7 @@ extension ThemesExtension on BuildContext {
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
   TextTheme get textTheme => Theme.of(this).textTheme;
 }
+
+// * ADD A LISTVIEW.BUILDER TO RENDER ALL HISTORY AND ONLY WORDS RELATED TO OUR PRESENT SEARCH
+// * SO WE'LL BASICALLY RENDER ALL ITEMS, HAVE A DICTIONARY WHICH CHECKS IF THE  WORD IS IN OUR HISTORY OR FAVOURITE
+// * THEN AN X ICON BY THE SIDE TO REMOVE IT FROM HISTORY OR MAYBE A SLIDE TO DELETE..?
