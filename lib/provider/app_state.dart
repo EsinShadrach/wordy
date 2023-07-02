@@ -66,27 +66,24 @@ class AppState extends ChangeNotifier {
         'An abbreviation formed by taking the initial letters of a phrase or name and pronouncing them as a word, such as "NASA" (National Aeronautics and Space Administration), "UNESCO" (United Nations Educational, Scientific and Cultural Organization), etc.',
   };
 
-  List<String> history = [];
+  List<Map<String, dynamic>> history = [];
   Map<String, String?> dataForBottomSheet = {};
   var random = Random();
   dynamic wordOfTheDayData;
-
+  List<String> allWords = [...all];
   String wordOfTheDay = generateWordPairs(
     maxSyllables: 30,
   ).first.first.titleCase();
 
-  void addToHistory(String word) {
+  void addToHistory(Map<String, dynamic> word) {
     if (!history.contains(word)) {
       history.add(word);
       notifyListeners();
     }
   }
 
-  void deleteFromHistory(String word) {
-    if (!history.contains(word)) {
-      history.remove(word);
-      notifyListeners();
-    }
+  void deleteFromHistory() {
+    // TODO: IMPLEMENT DELETE HISTORY
   }
 
   void clearHistory() {

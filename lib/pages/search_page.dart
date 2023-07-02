@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordy/provider/app_state.dart';
 import 'package:wordy/utilities/word_and_phonetics.dart';
 
 class SearchPage extends StatefulWidget {
@@ -11,10 +13,13 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   late final TextEditingController _searchController;
   final GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
+  late List<Map<String, dynamic>> filteredList;
   bool searchActive = false;
-  late List<Map<String, dynamic>> filteredList = [...sample];
+
   @override
   void initState() {
+    AppState appState = context.read<AppState>();
+    filteredList = [...appState.history];
     _searchController = TextEditingController();
     super.initState();
   }
@@ -28,11 +33,21 @@ class _SearchPageState extends State<SearchPage> {
   void submitWord() {
     if (_searchController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please Enter a Word.")),
+        const SnackBar(
+          content: Text("Please Enter a Word."),
+          behavior: SnackBarBehavior.floating,
+          dismissDirection: DismissDirection.horizontal,
+        ),
       );
     } else {
+      AppState appState = context.read<AppState>();
+      appState.addToHistory({
+        "name": _searchController.text,
+        "inHistory": true,
+        "inFavourite": false,
+      });
       setState(() {
-        filteredList = sample
+        filteredList = [...appState.history]
             .where(
               (item) => item['name']
                   .toString()
@@ -43,44 +58,6 @@ class _SearchPageState extends State<SearchPage> {
       });
     }
   }
-
-  List<Map<String, dynamic>> sample = [
-    {
-      "name": "apple",
-      "inHistory": true,
-      "inFavourite": false,
-    },
-    {
-      "name": "rice",
-      "inHistory": false,
-      "inFavourite": true,
-    },
-    {
-      "name": "banana",
-      "inHistory": true,
-      "inFavourite": true,
-    },
-    {
-      "name": "orange",
-      "inHistory": false,
-      "inFavourite": false,
-    },
-    {
-      "name": "butter",
-      "inHistory": true,
-      "inFavourite": true,
-    },
-    {
-      "name": "bacon",
-      "inHistory": true,
-      "inFavourite": true,
-    },
-    {
-      "name": "cheese",
-      "inHistory": true,
-      "inFavourite": true,
-    },
-  ];
 
   IconData search = Icons.search_rounded;
 
@@ -97,6 +74,7 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    AppState appState = context.watch<AppState>();
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -133,13 +111,15 @@ class _SearchPageState extends State<SearchPage> {
             },
             onChanged: (value) {
               setState(() {
-                filteredList = sample
-                    .where((item) =>
-                        item['name']
-                            .toString()
-                            .toLowerCase()
-                            .contains(value.toLowerCase()) ||
-                        value == '')
+                filteredList = [...appState.history]
+                    .where(
+                      (item) =>
+                          item['name']
+                              .toString()
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) ||
+                          value == '',
+                    )
                     .toList();
               });
             },
@@ -176,10 +156,11 @@ class _SearchPageState extends State<SearchPage> {
             ),
             splashColor: context.colorscheme.secondary.withOpacity(0.3),
             onTap: () {
-              print(sample[index]);
+              print(appState.history);
+              // TODO: IMPLEMENT NAVIGATE TO WORD DETAILED PAGE
             },
             onLongPress: () {
-              print("LONG PRESSED ${filteredList[index]}");
+              // TODO: IMPLEMENT HOLD TO DELETE
             },
           );
         },
