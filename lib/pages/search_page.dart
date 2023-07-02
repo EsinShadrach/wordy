@@ -169,7 +169,7 @@ class _SearchPageState extends State<SearchPage> {
             title: Row(
               children: [
                 Expanded(
-                  child: Text("${filteredList[index]["name"]}"),
+                  child: Text(filteredList[index]["name"]),
                 ),
                 const Icon(Icons.arrow_forward_rounded),
               ],
@@ -177,6 +177,9 @@ class _SearchPageState extends State<SearchPage> {
             splashColor: context.colorscheme.secondary.withOpacity(0.3),
             onTap: () {
               print(sample[index]);
+            },
+            onLongPress: () {
+              print("LONG PRESSED ${filteredList[index]}");
             },
           );
         },
@@ -186,4 +189,5 @@ class _SearchPageState extends State<SearchPage> {
 }
 
 // * SO WE'LL BASICALLY RENDER ALL ITEMS, HAVE A DICTIONARY WHICH CHECKS IF THE  WORD IS IN OUR HISTORY OR FAVOURITE
-// * THEN AN X ICON BY THE SIDE TO REMOVE IT FROM HISTORY OR MAYBE A SLIDE TO DELETE..?
+// * THEN WHEN YOU LONG_PRESS AN ICON THAT IS EITHER A FAVOURITE OR IN HISTORY THE BUTTON A THE RIGHT TRANSFORM'S INTO MAYBE A GARBAGE OR X ICON??
+// ! MOVE YOUR EXTENSION TO A CONSTANTS FOLDER

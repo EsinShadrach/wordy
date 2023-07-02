@@ -47,46 +47,47 @@ class LoadingState extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
-              height: 450,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: palette.primary,
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: palette.primaryContainer,
-                  width: 2,
+            Card(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+                height: 450,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: palette.secondaryContainer,
+                    width: 2,
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SkeletonLine(width: 120, height: 30),
-                  const SizedBox(height: 20),
-                  const SkeletonLine(width: double.infinity, height: 20),
-                  const SizedBox(height: 5),
-                  const SkeletonLine(width: 200, height: 20),
-                  const SizedBox(height: 20),
-                  const SkeletonLine(width: double.infinity, height: 20),
-                  const SizedBox(height: 5),
-                  const SkeletonLine(width: 300, height: 20),
-                  const SizedBox(height: 20),
-                  const SkeletonLine(width: 150, height: 20),
-                  const SizedBox(height: 20),
-                  const SkeletonLine(width: double.infinity, height: 20),
-                  const SizedBox(height: 10),
-                  const SkeletonLine(width: 200, height: 20),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  const SkeletonLine(width: 100, height: 20),
-                  const SizedBox(height: 10),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: const SkeletonLine(width: 70, height: 35),
-                  ),
-                ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SkeletonLine(width: 120, height: 30),
+                    const SizedBox(height: 20),
+                    const SkeletonLine(width: double.infinity, height: 20),
+                    const SizedBox(height: 5),
+                    const SkeletonLine(width: 200, height: 20),
+                    const SizedBox(height: 20),
+                    const SkeletonLine(width: double.infinity, height: 20),
+                    const SizedBox(height: 5),
+                    const SkeletonLine(width: 300, height: 20),
+                    const SizedBox(height: 20),
+                    const SkeletonLine(width: 150, height: 20),
+                    const SizedBox(height: 20),
+                    const SkeletonLine(width: double.infinity, height: 20),
+                    const SizedBox(height: 10),
+                    const SkeletonLine(width: 200, height: 20),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const SkeletonLine(width: 100, height: 20),
+                    const SizedBox(height: 10),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: const SkeletonLine(width: 70, height: 35),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

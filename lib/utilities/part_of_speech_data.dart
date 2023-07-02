@@ -27,7 +27,7 @@ class PartsOfSpeechWidget extends StatelessWidget {
           Text(
             "${appState.dataForBottomSheet["partOfSpeech"]}",
             style: textTheme.headlineLarge!.copyWith(
-              color: palette.onPrimaryContainer,
+              color: palette.onSurface,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -35,7 +35,7 @@ class PartsOfSpeechWidget extends StatelessWidget {
           Text(
             "${appState.dataForBottomSheet["definition"]}",
             style: textTheme.headlineSmall!.copyWith(
-              color: palette.onPrimaryContainer,
+              color: palette.tertiary,
             ),
           ),
         ],
