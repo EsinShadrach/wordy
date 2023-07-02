@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordy/constants/constants.dart';
 import 'package:wordy/provider/app_state.dart';
 import 'package:wordy/utilities/word_and_phonetics.dart';
 
@@ -157,7 +158,7 @@ class _SearchPageState extends State<SearchPage> {
             splashColor: context.colorscheme.secondary.withOpacity(0.3),
             onTap: () {
               // debugPrint("${appState.history[index]['name']}");
-              appState.getWord(word: appState.history[index]['name']);
+              // appState.getWord(word: appState.history[index]['name']);
               // TODO: IMPLEMENT NAVIGATE TO WORD DETAILED PAGE
             },
             onLongPress: () {
