@@ -70,7 +70,9 @@ class AppState extends ChangeNotifier {
   Map<String, String?> dataForBottomSheet = {};
   var random = Random();
   dynamic wordOfTheDayData;
+  dynamic neededWord;
   List<String> allWords = [...all];
+
   String wordOfTheDay = generateWordPairs(
     maxSyllables: 30,
   ).first.first.titleCase();
@@ -103,6 +105,14 @@ class AppState extends ChangeNotifier {
     String word = wordOfTheDay;
     dynamic data = await WordData(word: word).getStructuredData();
     wordOfTheDayData = data;
+    notifyListeners();
+  }
+
+  Future<void> getWord({required String word}) async {
+    debugPrint("LOOKING");
+    dynamic data = await WordData(word: word).getStructuredData();
+    neededWord = data;
+    debugPrint("$neededWord");
     notifyListeners();
   }
 }

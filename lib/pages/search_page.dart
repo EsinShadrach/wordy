@@ -156,7 +156,8 @@ class _SearchPageState extends State<SearchPage> {
             ),
             splashColor: context.colorscheme.secondary.withOpacity(0.3),
             onTap: () {
-              print(appState.history);
+              // debugPrint("${appState.history[index]['name']}");
+              appState.getWord(word: appState.history[index]['name']);
               // TODO: IMPLEMENT NAVIGATE TO WORD DETAILED PAGE
             },
             onLongPress: () {
