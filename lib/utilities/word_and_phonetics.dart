@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-import 'package:wordy/constants/play_audio.dart';
 import 'package:wordy/provider/app_state.dart';
 
 class DefinedWord extends StatefulWidget {

@@ -59,7 +59,7 @@ class _HiddenDrawerWidgetState extends State<HiddenDrawerWidget> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // OnClick Redirect to Search Page
+          Navigator.pushNamed(context, '/search');
         },
         backgroundColor: palette.primary,
         label: Text(
