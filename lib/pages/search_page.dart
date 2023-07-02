@@ -12,7 +12,7 @@ class _SearchPageState extends State<SearchPage> {
   late final TextEditingController _searchController;
   final GlobalKey<FormFieldState> _formKey = GlobalKey<FormFieldState>();
   bool searchActive = false;
-  List<String> filteredList = [];
+  late List<Map<String, dynamic>> filteredList = [...sample];
   @override
   void initState() {
     _searchController = TextEditingController();
@@ -34,21 +34,66 @@ class _SearchPageState extends State<SearchPage> {
       setState(() {
         filteredList = sample
             .where(
-                (item) => item.contains(_searchController.text.toLowerCase()))
+              (item) => item['name']
+                  .toString()
+                  .toLowerCase()
+                  .contains(_searchController.text.toLowerCase()),
+            )
             .toList();
       });
     }
   }
 
-  List<String> sample = [
-    "apple",
-    "banana",
-    "orange",
-    "butter",
-    "RICE",
-    "bacon",
-    "cheese"
+  List<Map<String, dynamic>> sample = [
+    {
+      "name": "apple",
+      "inHistory": true,
+      "inFavourite": false,
+    },
+    {
+      "name": "rice",
+      "inHistory": false,
+      "inFavourite": true,
+    },
+    {
+      "name": "banana",
+      "inHistory": true,
+      "inFavourite": true,
+    },
+    {
+      "name": "orange",
+      "inHistory": false,
+      "inFavourite": false,
+    },
+    {
+      "name": "butter",
+      "inHistory": true,
+      "inFavourite": true,
+    },
+    {
+      "name": "bacon",
+      "inHistory": true,
+      "inFavourite": true,
+    },
+    {
+      "name": "cheese",
+      "inHistory": true,
+      "inFavourite": true,
+    },
   ];
+
+  IconData search = Icons.search_rounded;
+
+  IconData returnNeededIcon({required int filterIndex}) {
+    IconData returnIcon = search;
+    var neededData = filteredList[filterIndex];
+    if (neededData["inFavourite"]) {
+      returnIcon = Icons.favorite_rounded;
+    } else if (neededData["inHistory"]) {
+      returnIcon = Icons.history_rounded;
+    }
+    return returnIcon;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +134,11 @@ class _SearchPageState extends State<SearchPage> {
             onChanged: (value) {
               setState(() {
                 filteredList = sample
-                    .where((String item) =>
-                        item.toLowerCase().contains(value.toLowerCase()) ||
+                    .where((item) =>
+                        item['name']
+                            .toString()
+                            .toLowerCase()
+                            .contains(value.toLowerCase()) ||
                         value == '')
                     .toList();
               });
@@ -100,7 +148,7 @@ class _SearchPageState extends State<SearchPage> {
               border: InputBorder.none,
               suffixIcon: IconButton(
                 icon: Icon(
-                  Icons.search_rounded,
+                  search,
                   color: context.colorscheme.primary,
                 ),
                 onPressed: () {
@@ -116,12 +164,12 @@ class _SearchPageState extends State<SearchPage> {
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            leading: const Icon(Icons.history),
+            leading: Icon(returnNeededIcon(filterIndex: index)),
             iconColor: context.colorscheme.primary,
             title: Row(
               children: [
                 Expanded(
-                  child: Text(filteredList[index]),
+                  child: Text("${filteredList[index]["name"]}"),
                 ),
                 const Icon(Icons.arrow_forward_rounded),
               ],
@@ -137,7 +185,5 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-
-// * ADD A LISTVIEW.BUILDER TO RENDER ALL HISTORY AND ONLY WORDS RELATED TO OUR PRESENT SEARCH
 // * SO WE'LL BASICALLY RENDER ALL ITEMS, HAVE A DICTIONARY WHICH CHECKS IF THE  WORD IS IN OUR HISTORY OR FAVOURITE
 // * THEN AN X ICON BY THE SIDE TO REMOVE IT FROM HISTORY OR MAYBE A SLIDE TO DELETE..?
