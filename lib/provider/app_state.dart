@@ -49,6 +49,10 @@ class AppState extends ChangeNotifier {
     return history.where((element) => element["inFavourite"]).toList();
   }
 
+  List<Map<String, dynamic>> getOnlyHistory() {
+    return history.where((element) => element["inHistory"]).toList();
+  }
+
   void deleteFromHistory(int index) {
     history.removeAt(index);
     notifyListeners();

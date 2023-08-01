@@ -1,4 +1,19 @@
-// ? Here we will just render a list of items in our history
-// ? when you click it it'll redirect to the detailed page
-// ? when you long press it you'll see a modal to delete
-// ? we'd also have a clear history button
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordy/provider/app_state.dart';
+import 'package:wordy/utilities/favourite_or_history.dart';
+
+class History extends StatelessWidget {
+  const History({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    AppState appState = context.watch<AppState>();
+    List<Map<String, dynamic>> favourites = appState.getOnlyHistory();
+    return FavouriteOrHistory(
+      fromWhere: "History",
+      items: favourites,
+      icon: Icons.history_rounded,
+    );
+  }
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:wordy/pages/favourite.dart';
+import 'package:wordy/pages/history.dart';
 import 'package:wordy/pages/word_of_the_day.dart';
 
 class HiddenDrawerWidget extends StatefulWidget {
@@ -41,6 +42,20 @@ class _HiddenDrawerWidgetState extends State<HiddenDrawerWidget> {
           ),
         ),
         const Favourite(),
+      ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: "History",
+          baseStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+          selectedStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 14,
+          ),
+        ),
+        const History(),
       ),
     ];
   }

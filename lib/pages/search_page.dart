@@ -100,6 +100,7 @@ class _SearchPageState extends State<SearchPage> {
         title: Form(
           key: _formKey,
           child: TextFormField(
+            autofocus: true,
             controller: _searchController,
             onFieldSubmitted: (value) {
               submitWord();
