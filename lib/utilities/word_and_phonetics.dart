@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:provider/provider.dart';
-import 'package:wordy/provider/app_state.dart';
 
 class DefinedWord extends StatefulWidget {
   const DefinedWord({
     super.key,
     required this.textTheme,
     required this.palette,
+    required this.searchedFor,
+    this.wordData,
   });
 
   final TextTheme? textTheme;
+  final dynamic wordData;
+  final String searchedFor;
   final ColorScheme palette;
 
   @override
@@ -39,10 +41,10 @@ class _DefinedWordState extends State<DefinedWord> {
 
   @override
   Widget build(BuildContext context) {
-    AppState appState = context.watch<AppState>();
-    var wordData = appState.wordOfTheDayData;
+    // AppState appState = context.watch<AppState>();
+    // var wordData = appState.wordOfTheDayData;
     String word = '';
-    wordData["audios"].forEach(
+    widget.wordData["audios"].forEach(
       (String audio) => {
         if (audio.isNotEmpty) word = audio,
       },
@@ -51,8 +53,8 @@ class _DefinedWordState extends State<DefinedWord> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          appState.wordOfTheDay,
-          style: widget.textTheme!.displayMedium!
+          widget.searchedFor,
+          style: widget.textTheme!.displayMedium!,
         ),
         const SizedBox(
           width: 10,

@@ -21,7 +21,7 @@ class WordData {
 
         final wordData = jsonResponse[0];
 
-        return wordData; // Return the fetched word data
+        return wordData;
       }
     } catch (error) {
       print("ERROR OCCURRED WHILE LOOKING FOR DATA");
@@ -62,6 +62,7 @@ class WordData {
 
   Future<Map> getStructuredData() async {
     Map<String, dynamic> structuredData = {
+      "word": word,
       "phonetics": await getPhonetics(),
       "audios": await getAudios(),
       "meanings": await getMeanings(),

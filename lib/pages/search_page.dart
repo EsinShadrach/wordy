@@ -56,6 +56,10 @@ class _SearchPageState extends State<SearchPage> {
             )
             .toList();
       });
+      Navigator.of(context).pushNamed(
+        '/detailed',
+        arguments: _searchController.text,
+      );
     }
   }
 
@@ -156,9 +160,10 @@ class _SearchPageState extends State<SearchPage> {
             ),
             splashColor: context.colorscheme.secondary.withOpacity(0.3),
             onTap: () {
-              // debugPrint("${appState.history[index]['name']}");
-              // appState.getWord(word: appState.history[index]['name']);
-              // TODO: IMPLEMENT NAVIGATE TO WORD DETAILED PAGE
+              Navigator.of(context).pushNamed(
+                '/detailed',
+                arguments: filteredList[index]["name"],
+              );
             },
             onLongPress: () {
               // TODO: IMPLEMENT HOLD TO DELETE

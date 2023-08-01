@@ -3,36 +3,42 @@ import 'package:provider/provider.dart';
 import 'package:wordy/provider/app_state.dart';
 import 'package:wordy/utilities/loading_state.dart';
 import 'package:wordy/utilities/phonetics.dart';
+import 'package:wordy/utilities/word_and_phonetics.dart';
+import 'package:wordy/utilities/word_card.dart';
 
-import '../utilities/word_and_phonetics.dart';
-import '../utilities/word_card.dart';
-
-class WordOfTheDay extends StatefulWidget {
-  const WordOfTheDay({
-    super.key,
-  });
+class DetailedPage extends StatefulWidget {
+  const DetailedPage({super.key});
 
   @override
-  State<WordOfTheDay> createState() => _WordOfTheDayState();
+  State<DetailedPage> createState() => _DetailedPageState();
 }
 
-class _WordOfTheDayState extends State<WordOfTheDay> {
+class _DetailedPageState extends State<DetailedPage> {
+  late String searchFor;
+  dynamic wordData;
+
   @override
-  void initState() {
-    final appState = context.read<AppState>();
-    appState.getWordOfTheDay();
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    searchFor = ModalRoute.of(context)?.settings.arguments as String;
+    Provider.of<AppState>(context, listen: false).getWord(word: searchFor);
   }
 
   @override
   Widget build(BuildContext context) {
     TextTheme? textTheme = Theme.of(context).textTheme;
     ColorScheme palette = Theme.of(context).colorScheme;
-    AppState appState = context.watch<AppState>();
-    var wordData = appState.wordOfTheDayData;
-    if (wordData == null) {
-      return LoadingState(palette: palette);
-    } else {
+    return Consumer<AppState>(builder: (context, provider, _) {
+      wordData = provider.neededWord;
+      if (wordData == null) {
+        return Scaffold(
+          body: Center(
+            child: Text("Looking for word $searchFor"),
+          ),
+        );
+      } else if (wordData["word"] != searchFor) {
+        return LoadingState(palette: palette);
+      }
       return Scaffold(
         body: ListView(
           children: [
@@ -48,10 +54,10 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   DefinedWord(
-                    searchedFor: appState.wordOfTheDay,
+                    searchedFor: searchFor,
                     textTheme: textTheme,
                     palette: palette,
-                    wordData: appState.wordOfTheDayData,
+                    wordData: wordData,
                   ),
                   const SizedBox(
                     height: 10,
@@ -75,7 +81,7 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: WordCard(
                         palette: palette,
-                        appState: appState,
+                        appState: provider,
                         textTheme: textTheme,
                         partOfSpeech: "${meaning["partOfSpeech"]}",
                         definitions: meaning["definitions"],
@@ -89,6 +95,6 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
           ],
         ),
       );
-    }
+    });
   }
 }

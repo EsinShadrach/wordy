@@ -1,6 +1,7 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordy/pages/detailed_page.dart';
 import 'package:wordy/pages/homepage.dart';
 import 'package:wordy/pages/search_page.dart';
 import 'package:wordy/provider/app_state.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
             routes: {
               '/search': (context) => const SearchPage(),
+              '/detailed': (context) => const DetailedPage(),
             },
             debugShowCheckedModeBanner: false,
             title: 'Wordy',

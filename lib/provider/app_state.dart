@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:wordy/constants/constants.dart';
 import 'package:wordy/utilities/title_string.dart';
 import 'package:english_words/english_words.dart';
 
@@ -109,10 +110,13 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> getWord({required String word}) async {
-    debugPrint("LOOKING");
-    dynamic data = await WordData(word: word).getStructuredData();
-    neededWord = data;
-    debugPrint("$neededWord");
+    try {
+      dynamic data = await WordData(word: word).getStructuredData();
+      neededWord = data;
+    } catch (error) {
+      neededWord = null;
+      redPrint(error);
+    }
     notifyListeners();
   }
 }
