@@ -72,10 +72,15 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> getWordOfTheDay() async {
-    String word = wordOfTheDay;
-    dynamic data = await WordData(word: word).getStructuredData();
-    wordOfTheDayData = data;
-    notifyListeners();
+    try {
+      String word = wordOfTheDay;
+      dynamic data = await WordData(word: word).getStructuredData();
+      wordOfTheDayData = data;
+      redPrint(wordOfTheDay);
+      notifyListeners();
+    } catch (error) {
+      redPrint(error);
+    }
   }
 
   Future<void> getWord({required String word}) async {

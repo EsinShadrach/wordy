@@ -9,7 +9,7 @@ class DefinedWord extends StatefulWidget {
     required this.textTheme,
     required this.palette,
     required this.searchedFor,
-    this.detailedPage,
+    required this.detailedPage,
     this.wordData,
   });
 
@@ -17,7 +17,7 @@ class DefinedWord extends StatefulWidget {
   final dynamic wordData;
   final String searchedFor;
   final ColorScheme palette;
-  final bool? detailedPage;
+  final bool detailedPage;
 
   @override
   State<DefinedWord> createState() => _DefinedWordState();
@@ -26,14 +26,18 @@ class DefinedWord extends StatefulWidget {
 class _DefinedWordState extends State<DefinedWord> {
   late final AudioPlayer audioPlayer;
   void playAudioFromUrl() async {
-    String url = '';
-    widget.wordData["audios"].forEach(
-      (String audio) => {
-        if (audio.isNotEmpty) url = audio,
-      },
-    );
-    await audioPlayer.setUrl(url);
-    audioPlayer.play();
+    String? url;
+    List<dynamic> audios = widget.wordData["audios"];
+    if (audios.isNotEmpty) {
+      url = audios.firstWhere((audio) => audio.isNotEmpty, orElse: () => null);
+    }
+    if (url != null) {
+      await audioPlayer.setUrl(url);
+      audioPlayer.play();
+    } else {
+      // Handle the case when no audio URL is available
+      print("No audio URL available for ${widget.searchedFor}");
+    }
   }
 
   @override
@@ -73,24 +77,27 @@ class _DefinedWordState extends State<DefinedWord> {
             Icons.mic_rounded,
           ),
         ),
-        Expanded(
-          flex: 2,
-          child: Container(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              onPressed: () {
-                appState.toggleFavourite(widget.searchedFor);
-              },
-              highlightColor: context.colorscheme.primary.withOpacity(0.2),
-              color: context.colorscheme.primary,
-              icon: Icon(
-                appState.getFavouriteStatus(widget.searchedFor)
-                    ? Icons.favorite_rounded
-                    : Icons.favorite_outline,
-              ),
-            ),
-          ),
-        )
+        widget.detailedPage
+            ? Expanded(
+                flex: 2,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    onPressed: () {
+                      appState.toggleFavourite(widget.searchedFor);
+                    },
+                    highlightColor:
+                        context.colorscheme.primary.withOpacity(0.2),
+                    color: context.colorscheme.primary,
+                    icon: Icon(
+                      appState.getFavouriteStatus(widget.searchedFor)
+                          ? Icons.favorite_rounded
+                          : Icons.favorite_outline,
+                    ),
+                  ),
+                ),
+              )
+            : Container()
       ],
     );
   }
