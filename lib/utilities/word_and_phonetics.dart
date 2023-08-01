@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
+import 'package:wordy/provider/app_state.dart';
 
 class DefinedWord extends StatefulWidget {
   const DefinedWord({
@@ -7,6 +9,7 @@ class DefinedWord extends StatefulWidget {
     required this.textTheme,
     required this.palette,
     required this.searchedFor,
+    this.detailedPage,
     this.wordData,
   });
 
@@ -14,6 +17,7 @@ class DefinedWord extends StatefulWidget {
   final dynamic wordData;
   final String searchedFor;
   final ColorScheme palette;
+  final bool? detailedPage;
 
   @override
   State<DefinedWord> createState() => _DefinedWordState();
@@ -46,6 +50,7 @@ class _DefinedWordState extends State<DefinedWord> {
 
   @override
   Widget build(BuildContext context) {
+    AppState appState = context.watch<AppState>();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -66,6 +71,24 @@ class _DefinedWordState extends State<DefinedWord> {
           highlightColor: context.colorscheme.onSurface.withOpacity(0.2),
           icon: const Icon(
             Icons.mic_rounded,
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            alignment: Alignment.centerRight,
+            child: IconButton(
+              onPressed: () {
+                appState.toggleFavourite(widget.searchedFor);
+              },
+              highlightColor: context.colorscheme.primary.withOpacity(0.2),
+              color: context.colorscheme.primary,
+              icon: Icon(
+                appState.getFavouriteStatus(widget.searchedFor)
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_outline,
+              ),
+            ),
           ),
         )
       ],

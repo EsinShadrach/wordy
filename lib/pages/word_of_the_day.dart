@@ -52,6 +52,7 @@ class _WordOfTheDayState extends State<WordOfTheDay> {
                     textTheme: textTheme,
                     palette: palette,
                     wordData: appState.wordOfTheDayData,
+                    key: const Key("Word Of The Day"),
                   ),
                   const SizedBox(
                     height: 10,

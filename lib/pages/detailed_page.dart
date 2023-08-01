@@ -90,6 +90,7 @@ class _DetailedPageState extends State<DetailedPage> {
                     textTheme: textTheme,
                     palette: palette,
                     wordData: wordData,
+                    detailedPage: true,
                     key: const Key("Detailed page"),
                   ),
                   const SizedBox(

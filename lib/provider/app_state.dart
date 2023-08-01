@@ -72,7 +72,6 @@ class AppState extends ChangeNotifier {
   var random = Random();
   dynamic wordOfTheDayData;
   dynamic neededWord;
-  List<String> allWords = [...all];
 
   String wordOfTheDay = generateWordPairs(
     maxSyllables: 30,
@@ -84,6 +83,24 @@ class AppState extends ChangeNotifier {
       history.add(word);
       notifyListeners();
     }
+  }
+
+  void toggleFavourite(String word) {
+    Map<String, dynamic> listItem = history.firstWhere(
+      (element) => element["name"] == word,
+    );
+    if (listItem["inFavourite"] as bool) {
+      listItem["inFavourite"] = false;
+    } else {
+      listItem["inFavourite"] = true;
+    }
+    notifyListeners();
+  }
+
+  bool getFavouriteStatus(String word) {
+    Map<String, dynamic> item =
+        history.firstWhere((element) => element["name"] == word);
+    return item["inFavourite"];
   }
 
   void deleteFromHistory(int index) {
