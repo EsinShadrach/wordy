@@ -16,6 +16,7 @@ class DetailedPage extends StatefulWidget {
 class _DetailedPageState extends State<DetailedPage> {
   late String searchFor;
   dynamic wordData;
+  bool isWordFound = true;
 
   @override
   void didChangeDependencies() {
@@ -32,14 +33,45 @@ class _DetailedPageState extends State<DetailedPage> {
       wordData = provider.neededWord;
       if (wordData == null) {
         return Scaffold(
-          body: Center(
-            child: Text("Looking for word $searchFor"),
+          appBar: AppBar(),
+          body: Container(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: "Looking For word: ",
+                    style: textTheme.headlineMedium,
+                    children: [
+                      TextSpan(
+                        text: searchFor,
+                        style: TextStyle(color: palette.primary),
+                      ),
+                    ],
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "If It takes to long then the word wasn't found.",
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.labelSmall!.copyWith(
+                    color: palette.error.withOpacity(0.6),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       } else if (wordData["word"] != searchFor) {
         return LoadingState(palette: palette);
       }
       return Scaffold(
+        appBar: AppBar(),
         body: ListView(
           children: [
             Padding(
@@ -58,6 +90,7 @@ class _DetailedPageState extends State<DetailedPage> {
                     textTheme: textTheme,
                     palette: palette,
                     wordData: wordData,
+                    key: const Key("Detailed page"),
                   ),
                   const SizedBox(
                     height: 10,

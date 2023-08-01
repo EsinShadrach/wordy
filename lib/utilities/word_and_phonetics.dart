@@ -21,8 +21,13 @@ class DefinedWord extends StatefulWidget {
 
 class _DefinedWordState extends State<DefinedWord> {
   late final AudioPlayer audioPlayer;
-
-  void playAudioFromUrl(String url) async {
+  void playAudioFromUrl() async {
+    String url = '';
+    widget.wordData["audios"].forEach(
+      (String audio) => {
+        if (audio.isNotEmpty) url = audio,
+      },
+    );
     await audioPlayer.setUrl(url);
     audioPlayer.play();
   }
@@ -41,27 +46,20 @@ class _DefinedWordState extends State<DefinedWord> {
 
   @override
   Widget build(BuildContext context) {
-    // AppState appState = context.watch<AppState>();
-    // var wordData = appState.wordOfTheDayData;
-    String word = '';
-    widget.wordData["audios"].forEach(
-      (String audio) => {
-        if (audio.isNotEmpty) word = audio,
-      },
-    );
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           widget.searchedFor,
           style: widget.textTheme!.displayMedium!,
+          overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(
           width: 10,
         ),
         IconButton(
           onPressed: () {
-            playAudioFromUrl(word);
+            playAudioFromUrl();
           },
           iconSize: 30,
           tooltip: "Speak",
