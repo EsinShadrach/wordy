@@ -34,9 +34,6 @@ class _DefinedWordState extends State<DefinedWord> {
     if (url != null) {
       await audioPlayer.setUrl(url);
       audioPlayer.play();
-    } else {
-      // Handle the case when no audio URL is available
-      print("No audio URL available for ${widget.searchedFor}");
     }
   }
 
