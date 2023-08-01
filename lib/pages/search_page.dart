@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordy/provider/app_state.dart';
+import 'package:wordy/utilities/delete_modal.dart';
 import 'package:wordy/utilities/word_and_phonetics.dart';
 
 class SearchPage extends StatefulWidget {
@@ -169,78 +170,15 @@ class _SearchPageState extends State<SearchPage> {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return AlertDialog(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                    title: RichText(
-                      text: TextSpan(
-                        style: context.textTheme.bodyLarge,
-                        text: "Do you want to delete ",
-                        children: [
-                          TextSpan(
-                            text: filteredList[index]["name"],
-                            style: TextStyle(
-                              color: context.colorscheme.primary,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          const TextSpan(
-                            text: " from history?",
-                          )
-                        ],
-                      ),
-                    ),
-                    icon: const Icon(Icons.delete),
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 16,
-                    ),
-                    content: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          style: ButtonStyle(
-                            shape: MaterialStatePropertyAll<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2),
-                              ),
-                            ),
-                            overlayColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return context.colorscheme.primary
-                                      .withOpacity(0.2);
-                                }
-                                return Colors.transparent;
-                              },
-                            ),
-                          ),
-                          child: const Text('Cancel'),
-                        ),
-                        MaterialButton(
-                          onPressed: () {
-                            appState.deleteFromHistory(index);
-                            setState(() {
-                              filteredList = [...appState.history];
-                            });
-                            Navigator.of(context).pop();
-                          },
-                          highlightColor: context.colorscheme.error.withOpacity(
-                            0.3,
-                          ),
-                          child: Text(
-                            "Delete",
-                            style: TextStyle(color: context.colorscheme.error),
-                          ),
-                        ),
-                      ],
-                    ),
+                  return DeleteModal(
+                    objectName: filteredList[index]["name"],
+                    fromWhere: "history",
+                    deleteAction: () {
+                      appState.deleteFromHistory(index);
+                      setState(() {
+                        filteredList = [...appState.history];
+                      });
+                    },
                   );
                 },
               );
