@@ -79,14 +79,16 @@ class AppState extends ChangeNotifier {
   ).first.first.titleCase();
 
   void addToHistory(Map<String, dynamic> word) {
-    if (!history.contains(word)) {
+    String wordString = word.toString();
+    if (!history.any((item) => item.toString() == wordString)) {
       history.add(word);
       notifyListeners();
     }
   }
 
-  void deleteFromHistory() {
-    // TODO: IMPLEMENT DELETE HISTORY
+  void deleteFromHistory(int index) {
+    history.removeAt(index);
+    notifyListeners();
   }
 
   void clearHistory() {
