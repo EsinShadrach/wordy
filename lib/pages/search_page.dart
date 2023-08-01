@@ -88,7 +88,7 @@ class _SearchPageState extends State<SearchPage> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(0.03),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 200),
             margin: EdgeInsets.symmetric(horizontal: searchActive ? 0 : 100),
             color: context.colorscheme.primary.withOpacity(
               searchActive ? 1 : 0,
