@@ -1,7 +1,5 @@
-<a href="/out/app-release.apk">
-    <h2> Wordy </h2>
-</a>
-<a href="/out/app-release.apk">
+<h2> Wordy </h2>
+<a href="https://drive.google.com/file/d/1RhcTrNGcGTxRhe_DdZBEGSoEFP1uevIM/view?usp=drive_link">
     <img src="./assets/icons/logo.png" width="24" />
 </a>
 
