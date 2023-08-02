@@ -3,6 +3,7 @@ import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:wordy/pages/favourite.dart';
 import 'package:wordy/pages/history.dart';
 import 'package:wordy/pages/word_of_the_day.dart';
+import 'package:wordy/utilities/word_and_phonetics.dart';
 
 class HiddenDrawerWidget extends StatefulWidget {
   const HiddenDrawerWidget({super.key});
@@ -17,13 +18,19 @@ class _HiddenDrawerWidgetState extends State<HiddenDrawerWidget> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     _pages = [
       ScreenHiddenDrawer(
         ItemHiddenMenu(
+          colorLineSelected: context.colorscheme.tertiary,
           name: "Word Of The Day",
           baseStyle: const TextStyle(),
-          selectedStyle: const TextStyle(
+          selectedStyle: TextStyle(
             fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 14,
           ),
         ),
@@ -31,13 +38,15 @@ class _HiddenDrawerWidgetState extends State<HiddenDrawerWidget> {
       ),
       ScreenHiddenDrawer(
         ItemHiddenMenu(
+          colorLineSelected: context.colorscheme.tertiary,
           name: "Favourite",
           baseStyle: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 14,
           ),
-          selectedStyle: const TextStyle(
+          selectedStyle: TextStyle(
             fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 14,
           ),
         ),
@@ -45,28 +54,27 @@ class _HiddenDrawerWidgetState extends State<HiddenDrawerWidget> {
       ),
       ScreenHiddenDrawer(
         ItemHiddenMenu(
+          colorLineSelected: context.colorscheme.tertiary,
           name: "History",
           baseStyle: const TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 14,
           ),
-          selectedStyle: const TextStyle(
+          selectedStyle: TextStyle(
             fontWeight: FontWeight.w600,
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 14,
           ),
         ),
         const History(),
       ),
     ];
-  }
 
-  @override
-  Widget build(BuildContext context) {
     ColorScheme palette = Theme.of(context).colorScheme;
     return Scaffold(
       body: HiddenDrawerMenu(
         backgroundColorMenu: palette.inversePrimary,
-        backgroundColorAppBar: palette.onPrimary,
+        backgroundColorAppBar: palette.inversePrimary,
         screens: _pages,
         isTitleCentered: true,
         slidePercent: 40,
