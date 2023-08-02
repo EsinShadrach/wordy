@@ -27,13 +27,20 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Wordy',
             theme: ThemeData(
-              colorScheme: lightScheme,
+              colorScheme: lightScheme ??
+                  ColorScheme.fromSeed(
+                    seedColor: Colors.blue,
+                    brightness: Brightness.light,
+                  ),
               brightness: Brightness.light,
               useMaterial3: true,
             ),
             darkTheme: ThemeData(
-              colorScheme: darkDynamic,
-              // colorSchemeSeed: Colors.blue[300],
+              colorScheme: darkDynamic ??
+                  ColorScheme.fromSeed(
+                    seedColor: Colors.blue,
+                    brightness: Brightness.dark,
+                  ),
               useMaterial3: true,
               brightness: Brightness.dark,
             ),
