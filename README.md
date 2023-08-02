@@ -25,7 +25,7 @@ Screenshot 2
 
 ### Getting Started
 
-#### You can either install it [here](./out/app-release.apk)
+#### You can either install it [here](https://drive.google.com/file/d/1RhcTrNGcGTxRhe_DdZBEGSoEFP1uevIM/view?usp=drive_link)
 
 Or to run the app on your local machine, make sure you have the latest version of Flutter installed. Clone this repository, open the project in your preferred code editor, and run the following command in the terminal:
 
