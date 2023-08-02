@@ -33,15 +33,15 @@ Or to run the app on your local machine, make sure you have the latest version o
 flutter run
 ```
 
-Dependencies
+#### Dependencies
 
 The app relies on the following Flutter packages:
 
-    http: Used to make HTTP requests to fetch word definitions from an external API.
-    hive: Used to store favorite words locally on the device.
+-   http: Used to make HTTP requests to fetch word definitions from an external API.
+-   hive: Used to store favorite words locally on the device.
     providers: Used for state management
 
-Contributions
+#### Contributions
 
 Contributions to this project are welcome! If you find any issues or have ideas for improvements, feel free to open a new issue or submit a pull request.
 License
